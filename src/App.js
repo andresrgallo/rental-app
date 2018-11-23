@@ -2,21 +2,23 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 //Import components
-import Home from './components/home';
-//import {Tenants} from './components/tenants/tenants';
-//import {Tenant} from './components/tenant/tenant';
-//import {NotFound} from './components/notfound/notfound';
+import Home from './components/Home';
+import Tenants from './components/Tenants';
+//import {Tenant} from './components/Tenant/Tenant';
+//import {NotFound} from './components/NotFound/NotFound';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/tenants" component={Tenants} />
         </Switch>
       </Router>
     );
   }
 }
 
-export default App;
+//<Route  path="/tenant/:id" component={Tenant} />
+//        <Route  path="*" component={NotFound} />

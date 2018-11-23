@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-function Home(props) {
+export default function Home(props) {
   return (
     <div>
       <h1>Welcome to the Rental-App</h1>
@@ -9,5 +9,3 @@ function Home(props) {
     </div>
   );
 }
-
-export default Home;
