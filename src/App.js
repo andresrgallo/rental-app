@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './components/Home';
 import Tenants from './components/Tenants';
 //import {Tenant} from './components/Tenant/Tenant';
-//import {NotFound} from './components/NotFound/NotFound';
+import NotFound from './components/NotFound';
 
 export default class App extends Component {
   render() {
@@ -14,6 +14,7 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/tenants" component={Tenants} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Router>
     );
@@ -21,4 +22,3 @@ export default class App extends Component {
 }
 
 //<Route  path="/tenant/:id" component={Tenant} />
-//        <Route  path="*" component={NotFound} />

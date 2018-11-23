@@ -1,0 +1,12 @@
+import React, {Component} from 'react';
+
+export default function NotFound() {
+  render() {
+    return (
+      <div>
+        <p>404</p>
+        <p>Page not found - </p>
+      </div>
+    );
+  }
+}
