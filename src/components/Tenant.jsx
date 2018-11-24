@@ -15,7 +15,7 @@ export default class Tenant extends Component {
 
   //Function to add st, nd, rd or th to dates
   addSuffix = theDate => {
-    let day = theDate.getDate();
+    const day = theDate.getDate();
     let suffix;
     switch (day) {
       case 1:
@@ -31,6 +31,65 @@ export default class Tenant extends Component {
         suffix = 'th';
     }
     return suffix;
+  };
+
+  rentDates = (startDate, endDate, paymentDay, rent) => {
+    let dates = [];
+    const days = [
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
+    ];
+    const paymentDayNumber = days.indexOf(paymentDay) + 1;
+
+    //Calculate the days diffence between start lease date and the payment day for the first week, sunday = 0
+    const daysDifference = startDate.getDay() - (paymentDayNumber + 1);
+
+    //Calculate the rent for the first week of tenancy
+    const rentFirstWeek =
+      daysDifference == 0
+        ? rent
+        : Math.abs((daysDifference * rent) / 7).toFixed(1);
+    console.log('days diff', daysDifference);
+    const endDateFirstWeek = this.addDays(startDate, daysDifference);
+
+    //function to print dates in a pretty way
+    const prettyDate = date => {
+      const monthNames = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
+      const theDate =
+        monthNames[date.getMonth()] +
+        ', ' +
+        date.getDate() +
+        this.addSuffix(date) +
+        ' ' +
+        date.getFullYear();
+      return theDate;
+    };
+
+    dates.push([
+      prettyDate(startDate),
+      prettyDate(endDateFirstWeek),
+      rentFirstWeek,
+    ]);
+    return dates;
   };
 
   //Fetch the data for individual tenants from API
@@ -63,16 +122,27 @@ export default class Tenant extends Component {
       'December',
     ];
     //Assign Year, Month, Days to constants to display at view or to user for calculations
-    const startMonth = monthNames[startDate.getMonth()];
-    const startDay = startDate.getDate() + this.addSuffix(startDate);
+    //const startMonth = monthNames[startDate.getMonth()];
+    const startLeaseDate =
+      monthNames[startDate.getMonth()] +
+      ', ' +
+      startDate.getDate() +
+      ' ' +
+      this.addSuffix(startDate) +
+      ' ' +
+      startDate.getFullYear();
+    //const startDay = startDate.getDate() + this.addSuffix(startDate);
     const startDayWord = startDate.getDay();
-    const startYear = startDate.getFullYear();
+    //const startYear = startDate.getFullYear();
     const endDate = new Date(tenant.end_date);
     const endMonth = monthNames[endDate.getMonth()];
-    const {id, rent, frequency, payment_day} = tenant;
+    const paymentDay = tenant.payment_day;
+    const {id, rent, frequency} = tenant;
     const newDate = this.addDays(startDate, 5);
     console.log('start day', startDayWord);
     console.log('newdate', newDate);
+    const test = this.rentDates(startDate, endDate, paymentDay, rent);
+    console.log('test', test);
 
     return (
       <div>
@@ -88,9 +158,7 @@ export default class Tenant extends Component {
           </thead>
           <tbody>
             <tr>
-              <td>
-                {startMonth}, {startDay} {startYear}
-              </td>
+              <td>{startLeaseDate}</td>
               <td>{endMonth}</td>
               <td>days ....</td>
               <td>{rent}</td>
