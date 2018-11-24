@@ -13,6 +13,26 @@ export default class Tenant extends Component {
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
   };
 
+  //Function to add st, nd, rd or th to dates
+  addSuffix = theDate => {
+    let day = theDate.getDate();
+    let suffix;
+    switch (day) {
+      case 1:
+        suffix = 'st';
+        break;
+      case 2:
+        suffix = 'nd';
+        break;
+      case 3:
+        suffix = 'rd';
+        break;
+      default:
+        suffix = 'th';
+    }
+    return suffix;
+  };
+
   //Fetch the data for individual tenants from API
   componentDidMount() {
     const {id} = this.props.match.params;
@@ -44,7 +64,7 @@ export default class Tenant extends Component {
     ];
     //Assign Year, Month, Days to constants to display at view or to user for calculations
     const startMonth = monthNames[startDate.getMonth()];
-    const startDay = startDate.getDate() + 'th';
+    const startDay = startDate.getDate() + this.addSuffix(startDate);
     const startDayWord = startDate.getDay();
     const startYear = startDate.getFullYear();
     const endDate = new Date(tenant.end_date);
