@@ -9,6 +9,7 @@ export default class Tenants extends Component {
     };
   }
 
+  //Fetch data for all Tenants from API
   componentDidMount() {
     fetch('https://hiring-task-api.herokuapp.com/v1/leases')
       .then(res => res.json())
@@ -31,6 +32,7 @@ export default class Tenants extends Component {
         <td>{t.tenant}</td>
       </tr>
     ));
+
     return (
       <div>
         <h2>Tenants</h2>
