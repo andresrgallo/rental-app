@@ -33,8 +33,11 @@ export default class Tenant extends Component {
     return suffix;
   };
 
-  rentDates = (startDate, endDate, paymentDay, rent) => {
+  //function to generate an array of arrays for all the tenant's history rent plus upcoming payments til end of lease
+  rentDates = (startDate, endDate, paymentDay, rent, frequency) => {
+    //array to store all dates and payments
     let dates = [];
+
     const days = [
       'monday',
       'tuesday',
@@ -44,18 +47,48 @@ export default class Tenant extends Component {
       'saturday',
       'sunday',
     ];
+    //Get the payment day as a number for every frequency-period
     const paymentDayNumber = days.indexOf(paymentDay) + 1;
 
-    //Calculate the days diffence between start lease date and the payment day for the first week, sunday = 0
-    const daysDifference = startDate.getDay() - (paymentDayNumber + 1);
+    //Calculate the days diffence between start lease date and the payment day for the first week, assuming
+    //if starting day is not equal to payment day, the payment-frequency-period will start at the next payment day
+    //const daysDifference = 7 - startDate.getDay() + paymentDayNumber - 1;
+    let initDaysDifference = null;
+    if (paymentDayNumber === startDate.getDay()) {
+      initDaysDifference = 0;
+    } else if (paymentDayNumber > startDate.getDay()) {
+      initDaysDifference = paymentDayNumber - startDate.getDay();
+    } else {
+      initDaysDifference = 7 - startDate.getDay() + paymentDayNumber;
+    }
 
     //Calculate the rent for the first week of tenancy
     const rentFirstWeek =
-      daysDifference == 0
+      initDaysDifference == 0
         ? rent
-        : Math.abs((daysDifference * rent) / 7).toFixed(1);
-    console.log('days diff', daysDifference);
-    const endDateFirstWeek = this.addDays(startDate, daysDifference);
+        : Math.abs((initDaysDifference * rent) / 7).toFixed(1);
+
+    //Calculate the duration of the lease in days
+    const leaseDurationDays =
+      Math.round(
+        Math.abs(
+          (startDate.getTime() - endDate.getTime()) / (24 * 60 * 60 * 1000),
+        ),
+      ) + 1;
+
+    //Get the payment-frequency in days to calculate the qty of payments for the whole lease duration
+    let frequencyDays = null;
+    if (frequency === 'weekly') {
+      frequencyDays = 7;
+    } else if (frequency === 'fortnightly') {
+      frequencyDays = 14;
+    } else if (frequency === 'monthly') {
+      frequencyDays = 28;
+    } else {
+      console.log(
+        'Payment frequency has to be weekly or fortnightly or monthly',
+      );
+    }
 
     //function to print dates in a pretty way
     const prettyDate = date => {
@@ -84,11 +117,48 @@ export default class Tenant extends Component {
       return theDate;
     };
 
-    dates.push([
-      prettyDate(startDate),
-      prettyDate(endDateFirstWeek),
-      rentFirstWeek,
-    ]);
+    //Append first "frequency-period" payment details to dates array
+    if (initDaysDifference !== 0) {
+      dates.push([
+        prettyDate(startDate),
+        prettyDate(this.addDays(startDate, initDaysDifference - 1)),
+        rentFirstWeek,
+      ]);
+    } else {
+      dates.push([
+        prettyDate(startDate),
+        prettyDate(this.addDays(startDate, 6)),
+        rent,
+      ]);
+    }
+
+    //Loop
+    const firstCompletePeriodDate = this.addDays(startDate, initDaysDifference);
+    const endFirstPeriodDate = this.addDays(
+      firstCompletePeriodDate,
+      frequencyDays - 1,
+    );
+    for (
+      let i = 0;
+      i < parseInt((leaseDurationDays - initDaysDifference) / frequencyDays);
+      i++
+    ) {
+      dates.push([
+        prettyDate(this.addDays(firstCompletePeriodDate, i * frequencyDays)),
+        prettyDate(this.addDays(endFirstPeriodDate, i * frequencyDays)),
+        rent,
+      ]);
+    }
+
+    //Append last "frequency-period" payment details to dates array if end day is different from payment day
+    if (paymentDayNumber !== endDate.getDay()) {
+      const lastDaysDifference =
+        (leaseDurationDays - initDaysDifference) % frequencyDays;
+      const startLastWeek = this.addDays(endDate, -lastDaysDifference + 1);
+      const lastPaymentDate = this.addDays(endDate, -lastDaysDifference);
+      const lastPayment = ((rent / 7) * lastDaysDifference).toFixed(1);
+      dates.push([prettyDate(startLastWeek), prettyDate(endDate), lastPayment]);
+    }
     return dates;
   };
 
@@ -106,8 +176,9 @@ export default class Tenant extends Component {
 
   render() {
     const {tenant} = this.state;
-    const startDate = new Date(tenant.start_date);
-    const monthNames = [
+    //var startDate = new Date('2018,08,02');
+    var startDate = new Date('2018,08,09');
+    const monthnames = [
       'January',
       'February',
       'March',
@@ -121,27 +192,21 @@ export default class Tenant extends Component {
       'November',
       'December',
     ];
-    //Assign Year, Month, Days to constants to display at view or to user for calculations
-    //const startMonth = monthNames[startDate.getMonth()];
-    const startLeaseDate =
-      monthNames[startDate.getMonth()] +
-      ', ' +
-      startDate.getDate() +
-      ' ' +
-      this.addSuffix(startDate) +
-      ' ' +
-      startDate.getFullYear();
-    //const startDay = startDate.getDate() + this.addSuffix(startDate);
     const startDayWord = startDate.getDay();
-    //const startYear = startDate.getFullYear();
-    const endDate = new Date(tenant.end_date);
-    const endMonth = monthNames[endDate.getMonth()];
+    const endDate = new Date('2018,12,28');
     const paymentDay = tenant.payment_day;
     const {id, rent, frequency} = tenant;
     const newDate = this.addDays(startDate, 5);
     console.log('start day', startDayWord);
     console.log('newdate', newDate);
-    const test = this.rentDates(startDate, endDate, paymentDay, rent);
+    //const test = this.rentDates(startDate, endDate, 'monday', 700, 'weekly');
+    const test = this.rentDates(
+      startDate,
+      endDate,
+      'tuesday',
+      510,
+      'fortnightly',
+    );
     console.log('test', test);
 
     return (
@@ -158,8 +223,8 @@ export default class Tenant extends Component {
           </thead>
           <tbody>
             <tr>
-              <td>{startLeaseDate}</td>
-              <td>{endMonth}</td>
+              <td />
+              <td />
               <td>days ....</td>
               <td>{rent}</td>
             </tr>
