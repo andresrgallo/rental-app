@@ -27,7 +27,7 @@ export default class Tenants extends Component {
     const list = tenants.map((t, index) => (
       <tr key={index}>
         <td>
-          <Link to={'/tenants/' + (index + 1)}>{t.id}</Link>
+          <Link to={'/leases.html?leaseId=' + (index + 1)}>{t.id}</Link>
         </td>
         <td>{t.tenant}</td>
       </tr>
@@ -35,16 +35,21 @@ export default class Tenants extends Component {
 
     return (
       <div>
-        <h2>Tenants</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Lease ref</th>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>{list}</tbody>
-        </table>
+        <div>
+          <Link to="/">Home Page</Link>
+        </div>
+        <div>
+          <h2>Tenants</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Lease ref</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>{list}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

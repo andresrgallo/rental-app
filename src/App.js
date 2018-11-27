@@ -13,8 +13,8 @@ export default class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/tenants" component={Tenants} />
-          <Route exact path="/tenants/:id" component={Tenant} />
+          <Route exact path="/leases" component={Tenants} />
+          <Route exact path="/leases.html" component={Tenant} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

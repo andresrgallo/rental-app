@@ -5,7 +5,7 @@ export default function Home(props) {
   return (
     <div>
       <h1>Welcome to the Rental-App</h1>
-      <Link to="/tenants">Tenants List</Link>
+      <Link to="/leases">Tenants List</Link>
     </div>
   );
 }

@@ -12,8 +12,13 @@ export default class Tenant extends Component {
 
   //Fetch the data for individual tenants from API
   componentDidMount() {
+    //Access the url
+    var url = window.location.href;
+    //Get the lease id
+    let leaseId = url.split('=')[1];
+    console.log('loc', this.props.location);
     const {id} = this.props.match.params;
-    fetch(`https://hiring-task-api.herokuapp.com/v1/leases/${id}`)
+    fetch(`https://hiring-task-api.herokuapp.com/v1/leases/${leaseId}`)
       .then(res => res.json())
       .then(tenant => {
         this.setState({tenant});
@@ -28,7 +33,7 @@ export default class Tenant extends Component {
     return (
       <div>
         <div>
-          <Link to="/">Home Page</Link>
+          <Link to="/">Home Page</Link> | <Link to="/leases">Tenants List</Link>
         </div>
         <div>
           <h2>Payment schedule for lease-id #{id} </h2>
