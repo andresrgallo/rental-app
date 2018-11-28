@@ -1,0 +1,62 @@
+ul {
+  display: inline-block;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+.menuBar {
+  background-color: #fff;
+}
+
+.logo {
+  float: left;
+  margin-right: 3rem;
+}
+
+.tenants {
+  float: right;
+}
+
+.logo a {
+  color: #ff5a61;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.tenants a {
+  color: #7f7573;
+  font-size: 1rem;
+  line-height: 3.1rem;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  border: 0;
+}
+
+a:hover,
+a:active {
+  color: #000;
+}
+
+@media only screen and (max-width: 1000px) {
+  .logo a {
+    font-size: 1.6rem;
+  }
+  .tenants a {
+    line-height: 2.1rem;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .logo a {
+    font-size: 1.3rem;
+  }
+  .tenants a {
+    line-height: 1.5rem;
+  }
+}

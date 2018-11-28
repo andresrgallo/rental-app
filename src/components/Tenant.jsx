@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import RentPayments from './RentPayments';
+import './css/Tenant.css';
 
 export default class Tenant extends Component {
   constructor(props) {
@@ -29,28 +30,23 @@ export default class Tenant extends Component {
   render() {
     const {tenant} = this.state;
     const {id} = tenant;
-
     return (
-      <div>
-        <div>
-          <Link to="/">Home Page</Link> | <Link to="/leases">Tenants List</Link>
-        </div>
-        <div>
-          <h2>Payment schedule for lease-id #{id} </h2>
-          <table>
-            <thead>
-              <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Days</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <RentPayments tenant={tenant} />
-            </tbody>
-          </table>
-        </div>
+      <div className="tenant-container">
+        <h2 id="tenant-title">Payment Schedule For Lease Id - {id}</h2>
+
+        <table id="table-tenant">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>Days</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <RentPayments tenant={tenant} />
+          </tbody>
+        </table>
       </div>
     );
   }

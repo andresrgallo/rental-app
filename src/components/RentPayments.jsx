@@ -194,7 +194,6 @@ export default class RentPayments extends Component {
 
   render() {
     const {tenant} = this.props;
-    console.log(tenant);
     //const startDate = new Date('2018,08,02');
     //const startDate = new Date('2018,08,09');
     const startDate = new Date(tenant.start_date);
@@ -209,7 +208,7 @@ export default class RentPayments extends Component {
       rent,
       frequency,
     );
-    console.log(rentalPayments);
+    //console.log(rentalPayments);
     //    const test = this.rentDates(
     //      startDate,
     //      endDate,
@@ -225,7 +224,7 @@ export default class RentPayments extends Component {
         <td>${period[3]}</td>
       </tr>
     ));
-    console.log('list', list);
+    //console.log('list', list);
     //const test = this.rentDates(
     //      startDate,
     //      endDate,

@@ -1,11 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './css/Home.css';
 
-export default function Home(props) {
+export default function Home() {
   return (
-    <div>
-      <h1>Welcome to the Rental-App</h1>
-      <Link to="/leases">Tenants List</Link>
+    <div className="home-container">
+      <h1 className="hero">
+        <ion-icon name="home" class="home-icon" />
+      </h1>
+      <h2 id="home-line">Property Managers</h2>
     </div>
   );
 }
