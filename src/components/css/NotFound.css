@@ -1,0 +1,44 @@
+.notfound-container {
+	height: 60vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.message {
+	width: 40rem;
+	text-align: center;
+}
+
+.message p:nth-child(1) {
+	font-size: 8rem;
+}
+
+.message p:nth-child(2) {
+	font-size: 1.5rem;
+	color: #d86467;
+}
+
+.message p {
+	margin: 1.5rem;
+}
+
+/* ----- Big tablets and Laptops ----- */
+
+@media only screen and (max-width: 1200px) {
+	.message p:nth-child(1) {
+		font-size: 6rem;
+	}
+	.message p:nth-child(2) {
+		font-size: 1.3rem;
+	}
+}
+/* ----- Small Tablet to Small Phones ----- */
+@media only screen and (max-width: 767px) {
+	.message p:nth-child(1) {
+		font-size: 4rem;
+	}
+	.message p:nth-child(2) {
+		font-size: 1rem;
+	}
+}

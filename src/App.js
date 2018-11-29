@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import asyncComponent from './components/AsyncComponent';
+import NotFound from './components/NotFound';
 
 //Import components using lazy routing
 const Home = asyncComponent(() =>
@@ -18,9 +19,9 @@ const Tenant = asyncComponent(() =>
 const NavBar = asyncComponent(() =>
 	import('./components/NavBar').then(module => module.default)
 );
-const NotFound = asyncComponent(() =>
-	import('./components/NotFound').the(module => module.default)
-);
+//const NotFound = asyncComponent(() =>
+//	import('./components/NotFound').the(module => module.default)
+//);
 
 export default class App extends Component {
 	render() {

@@ -1,51 +1,60 @@
 .tenant-container {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  background-color: #f4f2eb;
-  height: 150vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url(../../images/desk.jpg);
-  background-size: cover;
-  background-position: center;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+	background-color: #f4f2eb;
+	height: 150vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+		url(../../images/desk.jpg);
+	background-size: cover;
+	background-position: center;
 }
 
 #table-tenant tr td:nth-child(3),
 #table-tenant tr td:nth-child(4) {
-  text-align: center;
+	text-align: center;
 }
 
 #tenant-title {
-  margin: 0 0 1rem 0;
-  padding-top: 0.5rem;
-  color: #ff5a61;
-  font-size: 2rem;
-  font-weight: 400;
-  letter-spacing: -1px;
-  line-height: 3rem;
-  text-align: center;
+	margin: 0 0 1rem 0;
+	padding-top: 0.5rem;
+	color: #ff5a61;
+	font-size: 2rem;
+	font-weight: 400;
+	letter-spacing: -1px;
+	line-height: 3rem;
+	text-align: center;
 }
 
 #table-tenant {
-  line-height: 0.7rem;
+	line-height: 0.7rem;
 }
 
-@media only screen and (max-width: 1000px) {
-  #tenant-title {
-    width: 50rem;
-    font-size: 1.4rem;
-  }
+/* ----- Big tablets and Laptops ----- */
+
+@media only screen and (max-width: 1200px) {
+	#tenant-title {
+		width: 47rem;
+		font-size: 1.4rem;
+	}
+	.tenant-container {
+		height: 250vh;
+	}
 }
 
-@media only screen and (max-width: 750px) {
-  #tenant-title {
-    width: 32rem;
-  }
+/* ----- Small Tablets ----- */
+
+@media only screen and (max-width: 767px) {
+	#tenant-title {
+		width: 32rem;
+	}
 }
+
+/* ----- Small Phones  ----- */
 
 @media only screen and (max-width: 540px) {
-  #tenant-title {
-    width: 27rem;
-  }
-  .tenant-container {
-    height: 170vh;
-  }
+	#tenant-title {
+		width: 24rem;
+	}
+	.tenant-container {
+		height: 170vh;
+	}
 }
