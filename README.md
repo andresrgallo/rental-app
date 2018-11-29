@@ -9,7 +9,7 @@ all the available tenants and their rental payments.
 
 ### `$ cd rental-app`
 
-##\$ `$ npm install`
+### `$ npm install`
 
 ### `$ npm start`
 
@@ -31,9 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## User Stories
 
-**_When accessing http://localhost:3000 _**
-
-**Feature** See a welcome page
+**Feature** See a welcome page When accessing http://localhost:3000
 
 - When I type the app url I want to see a navigation bar with links to
   where I want to go
@@ -72,15 +70,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Components
 
-In order to fulfil user stories, the following react components were build:
+In order to fulfil user stories, the following react components were built:
 
-- Home: A welcome page with the companies industry
-- NavBar: A navigation bar with two links, home and tenants list.
-- NotFound: A 404 page displayed when a url not recognized by the router is typed.
-- Tenants: A Table-list with all the Tenants available.
-- Tenant: A component that renders a Table-list with the payment ledger of a specific tenant. It renders the RentPayments component.
-- RentPayments; A component that encapsulates all the logic and manipulation of dates.
-- AsyncComponent: To enable `lazy loading`
+- **Home:** A welcome page with the companies industry
+- **NavBar:** A navigation bar with two links, home and tenants list.
+- **NotFound:** A 404 page displayed when a url not recognized by the router is typed.
+- **Tenants:** A Table-list with all the Tenants available.
+- **Tenant:** A component that renders a Table-list with the payment ledger of a specific tenant. It renders the RentPayments component.
+- **RentPayments:** A component that encapsulates all the logic and manipulation of dates.
+- **AsyncComponent:** To enable `lazy loading`
 
 ### Lazy loading
 
